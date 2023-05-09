@@ -8,14 +8,14 @@ namespace ShoppingApp.Models
 
         [Key]
         public int Id { get; set; }
-        public DateOnly BillDate { get; set; }
+        public DateTime BillDate { get; set; }
 
-        public DateOnly DeliveryDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
         public double TotalPrice { get; set; }
 
 
         //Relationships
-        public List<Purchase> Purchases { get; set; }
+        public List<Purchase>? Purchases { get; set; }
 
     }
 }

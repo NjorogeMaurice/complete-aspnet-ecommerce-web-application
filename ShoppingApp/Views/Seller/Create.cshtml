@@ -1,0 +1,41 @@
+﻿@model Seller
+
+@{
+    ViewData["Title"] = "Create a new account";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Create a new accountt</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create" method="POST">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPwd" class="control-label"></label>
+                        <input asp-for="ConfirmPwd" class="form-control" />
+                        <span asp-validation-for="ConfirmPwd" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create an account" class="btn btn-outline-success" />
+                    </div>
+
+                </form>
+                <a asp-controller="Seller" asp-action="Index"> Sign in </a>
+            </div>
+        </div>
+    </div>
+</div>

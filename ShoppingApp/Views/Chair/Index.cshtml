@@ -1,0 +1,83 @@
+﻿a
+@model IEnumerable<Chair>
+@{
+    ViewData["Title"] = "Chairs";
+    string key = "";
+    string user = " ";
+    string value = TempData["data"]?.ToString();
+    string type = TempData["type"]?.ToString();
+    string value2 = TempData["data2"]?.ToString();
+}
+<h1>Products</h1>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.ChairName
+                                    <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.ChairImageURL" width="100%" alt="@item.ChairName">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text"><b>Name: </b>@item.ChairName</p>
+                            <p class="card-text">
+                                <b>Category: </b>@item.Category.CategoryName
+                            </p>
+                            <p class="card-text"><b>Price: </b>@item.Price.ToString()</p>
+                            <p class="card-text ">
+                                <b>Status: </b>
+                                @item.StockStatus unit(s) available
+                            </p>
+
+                        </div>
+                    </div>
+                    <div id="item-description">
+                        <b>Description:</b><br />
+                        @item.Description
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <script type="text/javascript">
+                                function writeToLocalStorage(key, value) {
+                                    localStorage.setItem(key, value);
+                                }
+                                function readFromLocalStorage(key) {
+                                    return localStorage.getItem(key);
+                                }
+
+
+                                writeToLocalStorage("idUser", @value);
+                                writeToLocalStorage("type", @type);
+                                @key = readFromLocalStorage('idUser');
+
+                                @user = readFromLocalStorage('type');
+                                alert("youuu");
+                            </script>
+                            <p class="card-text">
+                                <a class="btn btn-success text-white" href="@Url.Action("Index", "Purchase", new {Quantity = "1",detail=value+value2,info="buyer",ProductId=item.ChairId,productName=item.ChairName,price=item.Price}  )"><i class="fa fa-cart"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

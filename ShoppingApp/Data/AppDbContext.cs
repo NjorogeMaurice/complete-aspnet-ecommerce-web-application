@@ -11,6 +11,7 @@ namespace ShoppingApp.Data
         {   
             // generate the default authentication table
             base.OnModelCreating(modelBuilder);
+            
         }
 
         public DbSet<Seller> Sellers { get; set; }
@@ -21,6 +22,11 @@ namespace ShoppingApp.Data
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
 
+        public DbSet<Chair> Chairs { get; set; }
+        public DbSet<Bed> Beds { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<SofaSet> Sofasets { get; set; }
 
+        
     }
 }

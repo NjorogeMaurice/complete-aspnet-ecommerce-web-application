@@ -1,9 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ShoppingApp.Data;
+using ShoppingApp.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(builder.Configuration.
+    GetConnectionString("DefaultConnectionString")));
+// Registering the services; <Service,Implementation>
+builder.Services.AddScoped<IProductService,ProductService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+builder.Services.AddScoped<IAccountService,AccountService>();
+builder.Services.AddScoped<ISellerService, SellerService>();
+builder.Services.AddScoped<IBillService, BillService>();
 builder.Services.AddControllersWithViews();
 
 
@@ -28,4 +38,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+//seed database
+AppDbInitializer.Seed(app);
+
 app.Run();
+

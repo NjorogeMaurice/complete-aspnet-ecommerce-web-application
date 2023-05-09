@@ -7,25 +7,87 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ShoppingApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
+    @{
+        string value1 = TempData["data"]?.ToString();
+        string type1 = TempData["type2"]?.ToString();
+        string value3 = TempData["data2"]?.ToString();
+        string type2 = TempData["type"]?.ToString();
+    }
+    </script>
     <header>
+        @{
+            Boolean buyer = true;
+        }
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ShoppingApp</a>
+                <a class="navbar-brand">Griter Furniture</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                    <ul class="navbar-nav flex-grow-1"  style={{"display":"flex"}}>
+                        
+                        @if(type1=="buyer" || type2 == "buyer")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Product", new {detail="",value=value3,value2=value1,type="buyer",typee="buyer"})"> Latest Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Chair", new {value=value3,value2=value1,type="buyer",typee="buyer"})">Chairs</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Table", new {value=value3,value2=value1,type="buyer",typee="buyer"})">Tables</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Sofa", new {value=value3,value2=value1,type="buyer",typee="buyer"})">Sofa</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Index", "Bed", new {value=value3,value2=value1,type="buyer",typee="buyer"})">Beds</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="Index">Sell with us</a>
+
+                            </li>
+                        }
+                        else if (type1 == null || type2 == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-green" asp-area="" asp-controller="Seller" asp-action="Index">Sell with us</a>
+
+                            </li>
+                        }
+                        else if(type1 == "seller" || type1=="seller" )
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Create", "Product", new {value=value3,value2=value1,type=type1})">Upload products</a>
+                            </li>
+                        }
+
+
+                        
+
                     </ul>
+                    <form class="form-inline my-2 my-lg-0" id="search-form" asp-controller="Product" asp-action="Filter" style="padding-right: 25px;">
+                        <input name="searchString" type="text" class="form-control" placeholder="Search for an item..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                    @if (value1 !=null || value3 !=null)
+                    {
+                        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Index">Log out</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Index">Sign in</a>
+                    }
                 </div>
             </div>
         </nav>

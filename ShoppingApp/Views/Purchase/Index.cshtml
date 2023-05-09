@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Purchase>
+
+@{
+    ViewData["Title"] = "Cart Items";
+    string value = TempData["data2"]?.ToString();
+    string user = TempData["type2"]?.ToString();
+}
+<h1>Cart Items</h1>
+
+<div class="column">
+    <table id="cart-table">
+        <thead><tr><td>Product Name</td><td>Unit Price</td><td>Quantity</td></tr></thead>
+        <tbody>
+        @{
+            double totalPrice = 0;
+        }
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id"><th>@item.ProductName</th><td>$@item.Price</td><td>@item.Quantity</td></tr>
+                totalPrice = totalPrice + item.Price;
+        }
+        </tbody>
+    </table>
+    <div><b>Total Price</b>: @totalPrice</div>
+</div>
+<div>@value</div>
+<div>
+    <button><a href="@Url.Action("Index", "Bill", new {detail=value,typ=user})">Check out</a></button>
+</div>
+<div>
+    <button><a href="@Url.Action("Index", "Product", new {detail=value})">Continue Shopping</a></button>
+</div>
+
